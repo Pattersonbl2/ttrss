@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Tiny Tiny RSS (TT-RSS) is an open source web-based news feed (RSS/Atom) reader and aggregator, designed to allow you to read news from any location, while feeling as close to a real desktop application as possible.
+Resource:
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    DependsOn:
+    Properties:
+      GroupDescription: allow ssh and http
+      vpcID: !ref MyVPC
+      SecuirtyGroupINgress:
+        -
+          CidrIp: 0.0.0.0/0
+          FromPort: 22
+          IpProtocol: 'tcp'
+          toPort: 22
+        -
+          CidrIp: 0.0.0.0/0
+          FromPort: 80
+          IpProtocol: 'tcp'
+          toPort: 80
+# MyEC2INstance:
+#     Type: AWS::EC2::Instance
+#     Properties:
+#       ImageId: !FindInMap [RegionAMImap, !Ref 'AWS::Region',AmazonLinux]
+#       InstanceType: T2.micro
+#       Tags:
+#         - Key: Name
+#           Value: testrss
+#         - Key: Owner
+#           Value: Bp
+#       Userdata:
+#         'Fn::Base64':
+#           !Sub |
+#           #!/bin/bash
+#           yum update -y
+#           yum install -y python3
+#           yum install -y httpd
+#           yum install -y php
+#           chlkconfig httpd on
+#           service httpd start
+#       KeyName: !Ref KeyName
+#       SecurityGroupIds:
+#         - !Ref SecurityGroup
+#         #
+#   MyDB:
+#    Type: Aws::RDS::DBInstance
+#    Properties:
+#      Engine: MySQL
+#   SecurityGroup:
+#     type: AWS::EC2::SecurityGroup
+#     Properties:
+#       SecurityGroup: allow ssh and http
+#       vpcID: vpc-afb30eca
+#       SecuirtyGroupINgress
